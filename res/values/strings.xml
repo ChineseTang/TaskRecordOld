@@ -6,7 +6,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="username">用户名</string>
     <string name="pwd">密 码</string>
+    <string name="repwd">请再输入密码</string>
     <string name="register">没有账号 点击注册</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="loginin">登录</string>
+    <string name="registerinfor">注册</string>
+    <string name="email">邮箱</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="title_activity_index">IndexActivity</string>
 
 </resources>
