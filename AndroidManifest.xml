@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.view.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,11 +27,16 @@
         </activity>
         <activity
             android:name="com.view.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="com.view.IndexActivity"
             android:label="@string/title_activity_index" >
+        </activity>
+        <activity
+            android:name="com.view.GuideActivity"
+            android:label="@string/title_activity_guide" >
         </activity>
     </application>
 

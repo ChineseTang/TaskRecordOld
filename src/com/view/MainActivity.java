@@ -1,15 +1,13 @@
 package com.view;
 
 
-import com.controller.AppApplication;
-import com.controller.TUserController;
-import com.db.TaskRecordOpenHelper;
-import com.model.TUser;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -20,26 +18,47 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.controller.AppApplication;
+import com.controller.TUserController;
+import com.db.TaskRecordOpenHelper;
+import com.model.TUser;
 
 public class MainActivity extends BaseActivity {
 	private TextView register;
 	private EditText eusername;
 	private EditText epwd;
+	private CheckBox rememberpass;
 	private Button loginbtn;
 	private String username;
 	private String pwd;
+	private SharedPreferences pref;
+	private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无标题
         setContentView(R.layout.activity_main);
+        pref = getSharedPreferences("data", MODE_PRIVATE);
         TaskRecordOpenHelper.setContext(getApplicationContext());
         register = (TextView) findViewById(R.id.register);
         eusername = (EditText) findViewById(R.id.userName);
         epwd = (EditText) findViewById(R.id.pwd);
         loginbtn = (Button) findViewById(R.id.loginbtn);
+        rememberpass = (CheckBox) findViewById(R.id.rememberpwd);
+        boolean isRember = pref.getBoolean("rember_password", false);
+        //boolean isfirst = pref.getBoolean("firstlogin", false);
+        if(isRember) {
+        	//将账号和密码设置到文本框中
+        	String u = pref.getString("uName", "");
+        	String p = pref.getString("uPwd","");
+        	eusername.setText(u);
+        	epwd.setText(p);
+        	rememberpass.setChecked(true);
+        }
         
         String regtxt = "没有账号 点击注册";
         SpannableString span = new SpannableString(register.getText().toString());
@@ -89,8 +108,32 @@ public class MainActivity extends BaseActivity {
 					if(rs != null) {
 						//将用户信息保存到全局中
 						AppApplication.setUser(rs);
-						Intent aintent = new Intent(MainActivity.this,IndexActivity.class);
-						startActivity(aintent);
+						//如果复选框选中，那么保存用户信息到Preferences中
+						editor = pref.edit();
+						if(rememberpass.isChecked()) {
+							editor.putBoolean("rember_password", true);
+							editor.putString("uName", username);
+							editor.putString("uPwd", pwd);
+							editor.commit();
+						}else{
+							editor.clear();
+						}
+						//如果是第一次进入引导界面，否则进入首页
+						/*pref = getSharedPreferences("data", MODE_PRIVATE);
+						editor = pref.edit();*/
+						//设置是否是第一次加载，如果是的话，进入引导界面
+						if(pref.getBoolean("firstlogin",true)) {
+							editor = pref.edit();
+							editor.putBoolean("firstlogin", false);
+							editor.commit();
+							Intent aintent = new Intent(MainActivity.this,GuideActivity.class);
+							startActivity(aintent);
+							finish();
+						}else {
+							Intent aintent = new Intent(MainActivity.this,IndexActivity.class);
+							startActivity(aintent);
+							finish();
+						}
 					}else {
 						AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 						dialog.setTitle("登录失败");
