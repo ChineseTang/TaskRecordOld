@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -45,7 +44,7 @@ public class MainActivity extends BaseActivity {
         pref = getSharedPreferences("data", MODE_PRIVATE);
         TaskRecordOpenHelper.setContext(getApplicationContext());
         register = (TextView) findViewById(R.id.register);
-        eusername = (EditText) findViewById(R.id.userName);
+        eusername = (EditText) findViewById(R.id.userNamea);
         epwd = (EditText) findViewById(R.id.pwd);
         loginbtn = (Button) findViewById(R.id.loginbtn);
         rememberpass = (CheckBox) findViewById(R.id.rememberpwd);
