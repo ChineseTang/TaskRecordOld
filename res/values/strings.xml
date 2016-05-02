@@ -15,9 +15,11 @@
     <string name="email">邮箱</string>
     <string name="male">男</string>
     <string name="female">女</string>
-    <string name="title_activity_index">IndexActivity</string>
+    <string name="title_activity_index">首页</string>
     <string name="title_activity_guide">GuideActivity</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+     <string name="homedate">2016年5月</string>
+     <string name="now">今</string>
 
 </resources>
