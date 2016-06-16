@@ -1,29 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IndexActivity" >
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <!-- the main content view -->
-
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-           <!--  <LinearLayout
-                android:id="@+id/indexpage"
+    android:id="@+id/showpage"
+    android:background="@drawable/homebg"   
+    android:orientation="vertical" >
+       <LinearLayout
+                android:id="@+id/showinpage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/homebg"
                 android:orientation="vertical" >
 
-                第一行的两个button按钮
+                <!-- 第一行的两个button按钮 -->
 
                 <LinearLayout
                     android:id="@+id/indexbutton"
@@ -47,7 +36,7 @@
                         android:layout_marginLeft="240dp"
                         android:background="@drawable/ic_search" />
                 </LinearLayout>
-                第二行的显示当前日期
+                <!-- 第二行的显示当前日期 -->
 
                 <LinearLayout
                     android:id="@+id/indexdate"
@@ -68,7 +57,7 @@
                         android:textSize="20sp" />
                 </LinearLayout>
 
-                第三行显示添加任务按钮
+                <!-- 第三行显示添加任务按钮 -->
 
                 <LinearLayout
                     android:id="@+id/indexaddbutton"
@@ -165,21 +154,6 @@
                         android:background="#ffffff" >
                     </ListView>
                 </LinearLayout>
-            </LinearLayout> -->
-        </FrameLayout>
+            </LinearLayout>
 
-        <!-- the navigation view -->
-
-        <ListView
-            android:id="@+id/left_drawers"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#ffffff"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp" >
-        </ListView>
-    </android.support.v4.widget.DrawerLayout>
-
-</RelativeLayout>
+</LinearLayout>

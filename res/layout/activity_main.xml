@@ -20,7 +20,16 @@
        android:layout_height="200dp"
        android:background="@drawable/circle"
        android:layout_marginBottom="30dp"
-       ></LinearLayout>
+       >
+       <ImageView 
+           android:id="@+id/yes"
+           android:layout_width="wrap_content"
+           android:layout_marginTop="45dp"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:src="@drawable/yes"
+           />
+   </LinearLayout>
 	<!--  用户名view 输入用户名 -->
    <LinearLayout
        android:id="@+id/user"
@@ -38,11 +47,15 @@
            android:textSize="20sp"
            android:singleLine="true"
            android:textColorHint="#ffffff"
+           android:paddingLeft="20dp"
+           android:drawablePadding="18dp"
+           android:gravity="left"
            android:background="@null"
            android:drawableLeft="@drawable/usericon"
            android:hint="@string/username"
        />
        <View android:background="#EEEEE0"
+           	android:layout_marginTop="5dp"
              android:layout_width="match_parent"
              android:layout_height="0.5dp"
             />
@@ -61,15 +74,17 @@
             android:layout_height="wrap_content"
             android:hint="@string/pwd"
             android:inputType="textPassword"
+            android:paddingLeft="20dp"
             android:singleLine="true"
             android:textColorHint="#ffffff"
             android:textColor="@drawable/edittext"
-            android:drawableLeft="@drawable/pwd2"
-            android:drawableRight="@drawable/forget"
+            android:drawableLeft="@drawable/pwd"
+            android:drawablePadding="18dp"
             android:background="@null"
             android:textSize="20sp" />
          <View android:background="#EEEEE0"
              android:layout_width="match_parent"
+             android:layout_marginTop="3dp"
              android:layout_height="0.5dp"
             />
    </LinearLayout>
@@ -79,7 +94,7 @@
        android:orientation="horizontal"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_marginLeft="55dp"
+       android:layout_marginLeft="85dp"
        android:layout_marginRight="50dp"
        android:layout_marginTop="5dp"
        >
@@ -112,7 +127,8 @@
            android:layout_width="match_parent"
            android:layout_height="50dp"
            android:text="@string/loginin"
-           android:background="#FF6A6A"
+           android:layout_margin="5dp"
+           android:background="@drawable/buttonbg"
            android:textColor="#ffffff"
            />
        <TextView 
@@ -120,6 +136,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:textColor="#ffffff"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"

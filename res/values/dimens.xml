@@ -3,5 +3,21 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
+	 <string-array name="spingarr">
+    	<item>一次性活动</item>  
+    	<item>每天</item>  
+    	<item>每个工作日</item>  
+    	<item>每周</item>  
+    	<item>每月</item>
+    	<item>每年</item>
+    </string-array>
+    <string-array name="spingarrtime">
+    	<item>无</item>  
+    	<item>事件发生时</item>  
+    	<item>提前10分钟</item>  
+    	<item>提前30分钟</item>  
+    	<item>提前1小时</item>
+    	<item>提前1天</item>
+    	<item>自定义</item>
+    </string-array>
 </resources>

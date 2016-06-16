@@ -1,11 +1,6 @@
 package com.view;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.myview.MonthDateView;
-import com.myview.MonthDateView.DateClick;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -17,14 +12,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class IndexActivity extends BaseActivity implements OnItemClickListener {
 	private DrawerLayout mDrawerLayout;
@@ -33,12 +24,7 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener {
 	private ArrayAdapter<String> adapter;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private String mtitle;
-	private ImageView iv_left;
-	private ImageView iv_right;
-	private TextView tv_date;
-	private TextView tv_week;
-	private TextView tv_today;
-	private MonthDateView monthDateView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +39,7 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener {
 		menuLists.add("设置");
 		menuLists.add("记事本");
 		menuLists.add("任务");
-		menuLists.add("设置");
+		menuLists.add("新任务");
 		menuLists.add("注销");
 		
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,menuLists);
@@ -86,53 +72,9 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener {
 		getActionBar().setHomeButtonEnabled(true);
 		
 		
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(10);
-		list.add(12);
-		list.add(15);
-		list.add(16);
-		iv_left = (ImageView) findViewById(R.id.iv_left);
-		iv_right = (ImageView) findViewById(R.id.iv_right);
-		monthDateView = (MonthDateView) findViewById(R.id.monthDateView);
-		tv_date = (TextView) findViewById(R.id.date_text);
-		tv_week  =(TextView) findViewById(R.id.week_text);
-		tv_today = (TextView) findViewById(R.id.tv_today);
-		monthDateView.setTextView(tv_date,tv_week);
-		monthDateView.setDaysHasThingList(list);
-		monthDateView.setDateClick(new DateClick() {
-			
-			@Override
-			public void onClickOnDate() {
-				Toast.makeText(getApplication(), "点击了：" + monthDateView.getmSelDay(), Toast.LENGTH_SHORT).show();
-			}
-		});
-		setOnlistener();
+
 	}
-	private void setOnlistener(){
-		iv_left.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				monthDateView.onLeftClick();
-			}
-		});
-		
-		iv_right.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				monthDateView.onRightClick();
-			}
-		});
-		
-		tv_today.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				monthDateView.setTodayToView();
-			}
-		});
-	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -168,13 +110,39 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		// insert into a fragment into the FrameLayout
-		Fragment taskFragment = new TaskFragment();
+		
 		Bundle args = new Bundle();
 		args.putString("text", menuLists.get(position));
-		taskFragment.setArguments(args);
 		
 		FragmentManager fm = getFragmentManager();
-		fm.beginTransaction().replace(R.id.content_frame, taskFragment).commit();
+		
+		switch (position) {
+		case 0:
+			Fragment taskFragment = new TaskFragment();
+			taskFragment.setArguments(args);
+			fm.beginTransaction().replace(R.id.content_frame, taskFragment).addToBackStack(null).commit();
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			Fragment showFragment = new ShowFragment();
+			showFragment.setArguments(args);
+			fm.beginTransaction().replace(R.id.content_frame, showFragment).addToBackStack(null).commit();
+			break;
+		case 4:
+			Fragment taskfragment = new TaskFragment();
+			taskfragment.setArguments(args);
+			fm.beginTransaction().replace(R.id.content_frame, taskfragment).addToBackStack(null).commit();
+			break;
+		case 5:
+			
+			break;
+		default:
+			break;
+		}
+		
 		
 		mDrawerLayout.closeDrawer(mDrawerList);
 	}
