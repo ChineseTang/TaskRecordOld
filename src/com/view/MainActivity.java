@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity {
 							startActivity(aintent);
 							finish();
 						}else {
-							Intent aintent = new Intent(MainActivity.this,IndexActivity.class);
+							Intent aintent = new Intent(MainActivity.this,MainTabActivity.class);
 							startActivity(aintent);
 							finish();
 						}

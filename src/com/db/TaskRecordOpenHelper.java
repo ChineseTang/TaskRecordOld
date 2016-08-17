@@ -33,7 +33,14 @@ public class TaskRecordOpenHelper extends SQLiteOpenHelper {
 			"note int," +
 			"noteway int," +
 			"rate int)";
-	
+	private final String newtask = "create table Newtask(" +
+	"ntId INTEGER PRIMARY KEY autoincrement," +
+	 "uId integer not null," +
+	"ncontent	text," +
+	"nfinish int," +
+	"nTime varchar(64)," +
+    "ntasktime long)";
+
 	public static void setContext(Context context) {
 		TaskRecordOpenHelper.context = context;
 	}
@@ -49,7 +56,7 @@ public class TaskRecordOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		//第一次执行时，创建表格
 		db.execSQL(tuser);
-		db.execSQL(task);
+		db.execSQL(newtask);
 	}
 	public SQLiteDatabase getConnection() {
 		SQLiteDatabase db = getWritableDatabase();

@@ -17,6 +17,7 @@
     <string name="female">女</string>
     <string name="title_activity_index">首页</string>
     <string name="title_activity_guide">GuideActivity</string>
+    <string name="title_activity_maintab">MainTabActivity</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
      <string name="homedate">2016年5月</string>

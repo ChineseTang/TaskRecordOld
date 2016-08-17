@@ -12,26 +12,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class IndexActivity extends BaseActivity implements OnItemClickListener {
-	private DrawerLayout mDrawerLayout;
+public class IndexActivity extends BaseActivity {
+	/*private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ArrayList<String> menuLists;
 	private ArrayAdapter<String> adapter;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private String mtitle;
+	private String mtitle;*/
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
-		getActionBar().setDisplayShowHomeEnabled(false); //取消actionbar左侧的快捷图标和文字
+		requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏上面的东西
+		
+		
+		
+		
+		
+		
+		//getActionBar().setDisplayShowHomeEnabled(false); //取消actionbar左侧的快捷图标和文字
 		//getActionBar().setDisplayShowTitleEnabled(false); 
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+		/*mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawers);
 		menuLists = new ArrayList<String>();
 		mtitle = (String) getTitle();
@@ -69,13 +77,13 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener {
 		
 		//begin the app icon 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);*/
 		
 		
 
 	}
 
-	@Override
+/*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.index, menu);
@@ -158,6 +166,6 @@ public class IndexActivity extends BaseActivity implements OnItemClickListener {
 		// TODO Auto-generated method stub
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
+	}*/
 
 }

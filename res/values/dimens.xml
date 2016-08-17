@@ -20,4 +20,13 @@
     	<item>提前1天</item>
     	<item>自定义</item>
     </string-array>
+     <string-array name="spingclass">
+    	<item>学习</item>  
+    	<item>旅游</item>  
+    	<item>工作</item>  
+    	<item>家庭</item>  
+    	<item>私人</item>
+    	<item>购物</item>
+    	<item>其它</item>
+    </string-array>
 </resources>

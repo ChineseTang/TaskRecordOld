@@ -13,7 +13,7 @@ public class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//…Ë÷√app º÷’ ˙∆¡
-		Log.d("BaseActivity", getClass().getSimpleName());//print the BaseActivity
+		//Log.d("BaseActivity", getClass().getSimpleName());//print the BaseActivity
 		ActivityCollector.addActivity(this);
 	}
 
