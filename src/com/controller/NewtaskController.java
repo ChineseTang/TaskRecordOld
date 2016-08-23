@@ -10,6 +10,7 @@ import com.db.TaskRecordOpenHelper;
 import com.model.Newtask;
 
 public class NewtaskController {
+	//添加任务
 	public boolean addTask(Newtask newtask) {
 		TaskRecordOpenHelper to = new TaskRecordOpenHelper();
 		SQLiteDatabase db = to.getConnection();
@@ -32,6 +33,82 @@ public class NewtaskController {
 		}
 		return false;
 	}
+	//根据日期查询当天的任务
+	public ArrayList<Newtask> searchByTime(int uid,String gettime) {
+		TaskRecordOpenHelper tdb = new TaskRecordOpenHelper();
+		SQLiteDatabase db = tdb.getConnection();
+		ArrayList<Newtask> tasks = new ArrayList<Newtask>();
+		//查询语句
+		String sql = "select * from Newtask where uid=" + uid + " and nTime='" + gettime + "'";
+		Cursor cs = db.rawQuery(sql, null);
+		try {
+			if (cs.moveToFirst()) {
+				do {
+					int ntid = cs.getInt(cs.getColumnIndex("ntId"));
+					int utid = cs.getInt(cs.getColumnIndex("uId"));
+					String ncontent = cs.getString(cs.getColumnIndex("ncontent"));
+					int nfinish = cs.getInt(cs.getColumnIndex("nfinish"));
+					String nTime = cs.getString(cs.getColumnIndex("nTime"));
+					long ntasktime = cs.getLong(cs.getColumnIndex("ntasktime"));
+					//创建一个任务
+					Newtask task = new Newtask();
+					
+					task.setNtId(ntid);
+					task.setuId(utid);
+					task.setNcontent(ncontent);
+					task.setNfinish(nfinish);
+					task.setaTime(nTime);
+					task.setNtasktime(ntasktime);
+					//添加到任务表中
+					tasks.add(task);
+				} while (cs.moveToNext());
+			}
+			cs.close();
+			db.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//返回任务
+		return tasks;
+	}
+	//根据日期查询当月的任务
+		public ArrayList<Newtask> searchDrawByTime(int uid,String gettime) {
+			TaskRecordOpenHelper tdb = new TaskRecordOpenHelper();
+			SQLiteDatabase db = tdb.getConnection();
+			ArrayList<Newtask> tasks = new ArrayList<Newtask>();
+			//查询语句
+			String sql = "select * from Newtask where uid=" + uid + " and nTime like '" + gettime + "%'";
+			Cursor cs = db.rawQuery(sql, null);
+			try {
+				if (cs.moveToFirst()) {
+					do {
+						int ntid = cs.getInt(cs.getColumnIndex("ntId"));
+						int utid = cs.getInt(cs.getColumnIndex("uId"));
+						String ncontent = cs.getString(cs.getColumnIndex("ncontent"));
+						int nfinish = cs.getInt(cs.getColumnIndex("nfinish"));
+						String nTime = cs.getString(cs.getColumnIndex("nTime"));
+						long ntasktime = cs.getLong(cs.getColumnIndex("ntasktime"));
+						//创建一个任务
+						Newtask task = new Newtask();
+						
+						task.setNtId(ntid);
+						task.setuId(utid);
+						task.setNcontent(ncontent);
+						task.setNfinish(nfinish);
+						task.setaTime(nTime);
+						task.setNtasktime(ntasktime);
+						//添加到任务表中
+						tasks.add(task);
+					} while (cs.moveToNext());
+				}
+				cs.close();
+				db.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			//返回任务
+			return tasks;
+		}
 	//查询所有的任务
 		public ArrayList<Newtask> searchAllTasks(int uid) {
 			
@@ -163,6 +240,18 @@ public boolean changeToNotFinish(int ntid) {
 	TaskRecordOpenHelper to = new TaskRecordOpenHelper();
 	SQLiteDatabase db = to.getConnection();
 	String sql = "update Newtask set nfinish=0 where ntid=" + ntid;
+	db.execSQL(sql);
+	return true;
+}
+/**
+ * 删除任务
+ * @param ntid
+ * @return
+ */
+public boolean deleteTaskById(int ntid) {
+	TaskRecordOpenHelper to = new TaskRecordOpenHelper();
+	SQLiteDatabase db = to.getConnection();
+	String sql = "delete from Newtask where ntid=" + ntid;
 	db.execSQL(sql);
 	return true;
 }

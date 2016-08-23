@@ -19,8 +19,8 @@ public class WeekDayView extends View {
 	//周六、周日的颜色
 	private int mWeekendColor = Color.parseColor("#fa4451");
 	//线的宽度
-	private int mStrokeWidth = 4;
-	private int mWeekSize = 14;
+	private int mStrokeWidth = 5;
+	private int mWeekSize = 18;
 	private Paint paint;
 	private DisplayMetrics mDisplayMetrics;
 	private String[] weekString = new String[]{"日","一","二","三","四","五","六"};

@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#DBDBDB"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical" >
-
+  <!-- android:background="@drawable/rebg" -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,8 +16,13 @@
             android:id="@+id/searchalltask"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            
+            android:background="@drawable/button" 
+             android:paddingBottom="8dp"  
+            android:paddingLeft="25dp"  
+            android:paddingRight="25dp"  
+            android:paddingTop="8dp"   
             android:text="所有"
             android:textColor="#000000"
             android:textSize="22sp" />
@@ -27,8 +32,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            
+            android:layout_margin="5dp"
+            android:background="@drawable/button"  
             android:text="未完"
+             android:paddingBottom="8dp"  
+            android:paddingLeft="25dp"  
+            android:paddingRight="25dp"  
+            android:paddingTop="8dp"  
             android:textColor="#000000"
             android:textSize="22sp" />
 
@@ -37,8 +47,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-          
+            android:layout_margin="5dp"
+          	android:background="@drawable/button"  
             android:text="已完"
+             android:paddingBottom="8dp"  
+            android:paddingLeft="25dp"  
+            android:paddingRight="25dp"  
+            android:paddingTop="8dp"  
             android:textColor="#000000"
             android:textSize="22sp" />
         <!--
@@ -66,8 +81,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/rounded_edittext"
         android:padding="6dp" >
+        <!-- android:background="@drawable/rounded_edittext" -->
     </ListView>
 
 </LinearLayout>

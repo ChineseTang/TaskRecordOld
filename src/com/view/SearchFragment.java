@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.controller.AppApplication;
 import com.controller.NewtaskController;
 import com.model.Newtask;
+import com.view.ShowFragment.TaskAdapter;
 
 public class SearchFragment extends Fragment {
 	private ArrayList<Newtask> tasks = new ArrayList<Newtask>();
@@ -30,6 +31,8 @@ public class SearchFragment extends Fragment {
 	private Button notfinishbtn;
 	private Button finishbtn;
 	private ListView lv;
+	private int tag = 0;//用于标记目前是哪个界面，是所有，未完，还是已完，用于在删除时判断跳转到哪个界面，默认是0
+	//表示所有界面，1是完成，-1是未完成
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -56,25 +59,66 @@ public class SearchFragment extends Fragment {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				final Newtask task = tasks.get(position);
-				AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-				dialog.setTitle("显示任务内容");
+				AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+				dialog.setTitle("任务内容");
 				dialog.setMessage(task.getNcontent());
 				dialog.setPositiveButton("完成",new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
 						//更新这个任务的状态，改变其为完成状态
 						new NewtaskController().changeToFinish(task.getNtId());
-						tasks = new NewtaskController().searchFinishTasks(AppApplication.getUser().getuId());
+						//tasks = new NewtaskController().searchFinishTasks(AppApplication.getUser().getuId());
+						if(tag == 0) {
+							tasks = new NewtaskController().searchAllTasks(AppApplication.getUser().getuId());
+						}else if(tag == 1) {
+							tasks = new NewtaskController().searchFinishTasks(AppApplication.getUser().getuId());
+						}else if(tag == -1) {
+							tasks = new NewtaskController().searchNotFinishTasks(AppApplication.getUser().getuId());
+						}
 						lv.setAdapter(new TaskAdapter(AppApplication.getContext(), R.layout.task_item, tasks));
 					}
 				});
-				dialog.setNegativeButton("未完成", new DialogInterface.OnClickListener() {
+				dialog.setNegativeButton("未完", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
 						new NewtaskController().changeToNotFinish(task.getNtId());
-						tasks = new NewtaskController().searchNotFinishTasks(AppApplication.getUser().getuId());
+						//tasks = new NewtaskController().searchNotFinishTasks(AppApplication.getUser().getuId());
+						if(tag == 0) {
+							tasks = new NewtaskController().searchAllTasks(AppApplication.getUser().getuId());
+						}else if(tag == 1) {
+							tasks = new NewtaskController().searchFinishTasks(AppApplication.getUser().getuId());
+						}else if(tag == -1) {
+							tasks = new NewtaskController().searchNotFinishTasks(AppApplication.getUser().getuId());
+						}
 						lv.setAdapter(new TaskAdapter(AppApplication.getContext(), R.layout.task_item, tasks));
 					}
+				});
+				//点击删除该条任务
+				dialog.setNeutralButton("删除", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						new NewtaskController().deleteTaskById(task.getNtId());
+						
+						/*String datetime = task.getaTime();
+						tasks = new NewtaskController().searchByTime(
+								AppApplication.getUser().getuId(),
+								datetime);
+						TaskAdapter taskadapter = new TaskAdapter(
+								AppApplication.getContext(),
+								R.layout.task_item, tasks);
+						lv.setAdapter(taskadapter);*/
+						//根据当前状态
+						if(tag == 0) {
+							tasks = new NewtaskController().searchAllTasks(AppApplication.getUser().getuId());
+						}else if(tag == 1) {
+							tasks = new NewtaskController().searchFinishTasks(AppApplication.getUser().getuId());
+						}else if(tag == -1) {
+							tasks = new NewtaskController().searchNotFinishTasks(AppApplication.getUser().getuId());
+						}
+						lv.setAdapter(new TaskAdapter(AppApplication.getContext(), R.layout.task_item, tasks));
+						//taskadapter.notifyDataSetChanged();
+					}
+					
 				});
 				dialog.show();
 			}
@@ -84,6 +128,7 @@ public class SearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				tag = 0;
 				tasks = new NewtaskController().searchAllTasks(AppApplication.getUser().getuId());
 				lv.setAdapter(new TaskAdapter(AppApplication.getContext(), R.layout.task_item, tasks));
 			}
@@ -92,6 +137,7 @@ public class SearchFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				tag = -1;
 				tasks = new NewtaskController().searchNotFinishTasks(AppApplication.getUser().getuId());
 				lv.setAdapter(new TaskAdapter(AppApplication.getContext(), R.layout.task_item, tasks));
 			}
@@ -100,6 +146,7 @@ public class SearchFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				tag = 1;
 				tasks = new NewtaskController().searchFinishTasks(AppApplication.getUser().getuId());
 				lv.setAdapter(new TaskAdapter(AppApplication.getContext(), R.layout.task_item, tasks));
 			}

@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <application
@@ -43,7 +43,8 @@
         <activity
             android:name="com.view.MainTabActivity"
             android:label="@string/title_activity_maintab"
-           >
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" >  
+           
         </activity>
     </application>
 

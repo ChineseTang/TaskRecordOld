@@ -10,6 +10,7 @@ import com.model.Newtask;
 import com.model.TUser;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -82,6 +84,9 @@ public class TaskFragment extends Fragment {
 									}
 								});
 						dialog.show();
+						InputMethodManager imm = (InputMethodManager) getActivity()
+								.getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(content.getWindowToken(), 0);
 						content.setText(null);
 
 					} else {

@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -29,7 +28,7 @@ public class MonthDateView extends View{
 	private TextView tv_date,tv_week;
 	private int weekRow;
 	private int [][] daysString;
-	private int mCircleRadius = 6;
+	private int mCircleRadius = 8;
 	private DateClick dateClick;
 	private int mCircleColor = Color.parseColor("#ff0000");
 	private List<Integer> daysHasThingList;
@@ -57,7 +56,7 @@ public class MonthDateView extends View{
 		String dayString;
 		int mMonthDays = DateUtils.getMonthDays(mSelYear, mSelMonth);
 		int weekNumber = DateUtils.getFirstDayWeek(mSelYear, mSelMonth);
-		Log.d("DateView", "DateView:" + mSelMonth+"月1号周" + weekNumber);
+		//Log.d("DateView", "DateView:" + mSelMonth+"月1号周" + weekNumber);
 		for(int day = 0;day < mMonthDays;day++){
 			dayString = (day + 1) + "";
 			int column = (day+weekNumber - 1) % 7;
@@ -72,7 +71,10 @@ public class MonthDateView extends View{
 				int endRecX = startRecX + mColumnSize;
 				int endRecY = startRecY + mRowSize;
 				mPaint.setColor(mSelectBGColor);
-				canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
+				int newCirclex = (startRecX+endRecX)/2;
+				int newCirley = (startRecY+endRecY)/2;
+				//canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
+				canvas.drawCircle(newCirclex, newCirley, 40, mPaint);
 				//记录第几行，即第几周
 				weekRow = row + 1;
 			}
@@ -87,6 +89,7 @@ public class MonthDateView extends View{
 				mPaint.setColor(mDayColor);
 			}
 			canvas.drawText(dayString, startX, startY, mPaint);
+			//canvas.drawCircle(dayString, startX, startY, mPaint);
 			if(tv_date != null){
 				tv_date.setText(mSelYear + "年" + (mSelMonth + 1) + "月");
 			}
@@ -188,7 +191,38 @@ public class MonthDateView extends View{
 		setSelectYearMonth(year,month,day);
 		invalidate();
 	}
-	
+	/**
+	 * 左点击，获得日期格式
+	 */
+	public String onLeftGetTime() {
+		int year = mSelYear;
+		int month = mSelMonth+2;
+		int day = mSelDay;
+		String smonth;
+		String sday;
+		if(month == 0){//若果是1月份，则变成12月份
+			year = mSelYear-1;
+			month = 11;
+		}else if(DateUtils.getMonthDays(year, month) == day){
+			//如果当前日期为该月最后一点，当向前推的时候，就需要改变选中的日期
+			month = month-1;
+			day = DateUtils.getMonthDays(year, month);
+		}else{
+			month = month-1;
+		}
+		if(month >=0 && month<= 9) {
+			smonth = '0' + String.valueOf(month);
+		}else{
+			smonth = String.valueOf(month);
+		}
+		if(day >= 0 && day <= 9) {
+			sday = '0' + String.valueOf(day);
+		}else{
+			sday = String.valueOf(day);
+		}
+		String gettime = year +"."+ smonth + "." + sday;
+		return gettime;
+	}
 	/**
 	 * 右点击，日历向前翻页
 	 */
@@ -209,7 +243,39 @@ public class MonthDateView extends View{
 		setSelectYearMonth(year,month,day);
 		invalidate();
 	}
-	
+	/**
+	 * 右击获取日期格式
+	 * @return
+	 */
+	public String onRightGetTime() {
+		int year = mSelYear;
+		int month = mSelMonth;
+		int day = mSelDay;
+		String smonth;
+		String sday;
+		if((month-1) == 11){//如果是12月份，则变成1月份
+			year = mSelYear+1;
+			month = 0;
+		}else if(DateUtils.getMonthDays(year, month) == day){
+			//如果当前日期为该月最后一点，当向前推的时候，就需要改变选中的日期
+			month = month + 1;
+			day = DateUtils.getMonthDays(year, month);
+		}else{
+			month = month + 1;
+		}
+		if(month >=0 && month<= 9) {
+			smonth = '0' + String.valueOf(month);
+		}else{
+			smonth = String.valueOf(month);
+		}
+		if(day >= 0 && day <= 9) {
+			sday = '0' + String.valueOf(day);
+		}else{
+			sday = String.valueOf(day);
+		}
+		String gettime = year +"."+ smonth + "." + sday;
+		return gettime;
+	}
 	/**
 	 * 获取选择的年份
 	 * @return
@@ -329,5 +395,26 @@ public class MonthDateView extends View{
 	public void setTodayToView(){
 		setSelectYearMonth(mCurrYear,mCurrMonth,mCurrDay);
 		invalidate();
+	}
+	/**
+	 * 返回今日日期格式为2016-05-06
+	 */
+	
+	public String getTodayToView() {
+		int mon = mCurrMonth+1;
+		String smonth;
+		String sday;
+		if(mon >=0 && mon<= 9) {
+			smonth = '0' + String.valueOf(mon);
+		}else{
+			smonth = String.valueOf(mon);
+		}
+		if(mCurrDay >= 0 && mCurrDay <= 9) {
+			sday = '0' + String.valueOf(mCurrDay);
+		}else{
+			sday = String.valueOf(mCurrDay);
+		}
+		String gettime = mCurrYear +"."+ smonth + "." + sday;
+		return gettime;
 	}
 }
