@@ -43,7 +43,7 @@ public class TaskFragment extends Fragment {
 				scontent = content.getText().toString();
 				if ("".equals(scontent) || scontent == null) {
 					AlertDialog.Builder dialog = new AlertDialog.Builder(
-							getActivity());
+							getActivity(),AlertDialog.THEME_HOLO_LIGHT);
 					dialog.setTitle("创建任务失败");
 					dialog.setMessage("任务内容不能为空");
 					dialog.setPositiveButton("Ok",
@@ -72,10 +72,10 @@ public class TaskFragment extends Fragment {
 					if (rs) {
 						// 如果插入成功，跳转到登录界面
 						AlertDialog.Builder dialog = new AlertDialog.Builder(
-								getActivity());
+								getActivity(),AlertDialog.THEME_HOLO_LIGHT);
 						dialog.setTitle("成功");
 						dialog.setMessage("创建任务成功");
-						dialog.setPositiveButton("Ok",
+						dialog.setPositiveButton("OK",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface arg0,
@@ -91,10 +91,10 @@ public class TaskFragment extends Fragment {
 
 					} else {
 						AlertDialog.Builder dialog = new AlertDialog.Builder(
-								getActivity());
+								getActivity(),AlertDialog.THEME_HOLO_LIGHT);
 						dialog.setTitle("失败");
 						dialog.setMessage("创建任务失败");
-						dialog.setPositiveButton("Ok",
+						dialog.setPositiveButton("OK",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface arg0,

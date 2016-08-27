@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rebg"
+    android:background="#87CEFA"
     android:fillViewport="true" >
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:id="@+id/registerpart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:orientation="vertical" >
 
             <!-- 用户名 -->
@@ -39,10 +39,10 @@
                 android:drawablePadding="18dp"
                 android:enabled="false"
                 android:hint="@string/username"
+                android:textColor="#000000"
                 android:paddingLeft="25dp"
                 android:singleLine="true"
                 android:text="Fred"
-                android:textColorHint="#000000"
                 android:textSize="20sp" />
 
             <View
@@ -58,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="6dp"
+                android:textColor="#000000"
                 android:background="@null"
                 android:drawableLeft="@drawable/email"
                 android:drawablePadding="18dp"
@@ -66,7 +67,6 @@
                 android:paddingLeft="25dp"
                 android:singleLine="true"
                 android:text="tzjsmile@qq.com"
-                android:textColorHint="#000000"
                 android:textSize="20sp" />
 
             <View
@@ -82,8 +82,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/buttonbg"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button"
                 android:text="注销"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />

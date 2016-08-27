@@ -1,5 +1,6 @@
 package com.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -33,6 +34,10 @@ public class MainTabActivity extends FragmentActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_fragments);
 		initView();
+		if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {  
+            finish();  
+            return;  
+        }  
 	}
 
 	// 初始化组件
@@ -50,9 +55,7 @@ public class MainTabActivity extends FragmentActivity {
 
 		for (int i = 0; i < count; i++) {
 			// 为每一个Tab按钮设置图标、文字和内容
-			TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray
-
-			[i]).setIndicator(getTabItemView(i));
+			TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray[i]).setIndicator(getTabItemView(i));
 
 			// 将Tab按钮添加进Tab选项卡中
 			mTabHost.addTab(tabSpec, fragmentArray[i], null);

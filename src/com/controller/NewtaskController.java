@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.db.TaskRecordOpenHelper;
 import com.model.Newtask;
@@ -252,6 +253,20 @@ public boolean deleteTaskById(int ntid) {
 	TaskRecordOpenHelper to = new TaskRecordOpenHelper();
 	SQLiteDatabase db = to.getConnection();
 	String sql = "delete from Newtask where ntid=" + ntid;
+	db.execSQL(sql);
+	return true;
+}
+/**
+ * 修改任务，修改任务内容，修改的任务状态一律改为未完成，修改时间
+ */
+public boolean updtateTask(Newtask newtask) {
+	TaskRecordOpenHelper to = new TaskRecordOpenHelper();
+	SQLiteDatabase db = to.getConnection();
+	String sql = "update Newtask set ncontent='" +newtask.getNcontent()+"',nfinish=0,nTime='" 
+	+ newtask.getaTime()
+	+ "',ntasktime=" + newtask.getNtasktime() + " where ntId=" + newtask.getNtId();
+	
+	Log.d("taskrecord", sql);
 	db.execSQL(sql);
 	return true;
 }

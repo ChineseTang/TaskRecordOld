@@ -45,9 +45,9 @@ public class RegisterActivity extends BaseActivity {
 	private EditText email;
 	private EditText epwd;
 	private EditText erepwd;
-	private RadioGroup rg;
+	/*private RadioGroup rg;
 	private RadioButton rmale;
-	private RadioButton rfemale;
+	private RadioButton rfemale;*/
 	private Button regbtn;
 	
 	private String susername;
@@ -71,12 +71,12 @@ public class RegisterActivity extends BaseActivity {
 		email = (EditText) findViewById(R.id.emailaddr);
 		epwd = (EditText) findViewById(R.id.pwd);
 		erepwd = (EditText) findViewById(R.id.repwd);
-		rg = (RadioGroup) findViewById(R.id.gender);
+		/*rg = (RadioGroup) findViewById(R.id.gender);
 		rmale = (RadioButton) findViewById(R.id.male);
-		rfemale = (RadioButton) findViewById(R.id.female);
+		rfemale = (RadioButton) findViewById(R.id.female);*/
 		regbtn = (Button) findViewById(R.id.registerbtn);
 		//获得性别
-		rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		/*rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkId) {
 				if(checkId == rmale.getId()) {
@@ -85,7 +85,7 @@ public class RegisterActivity extends BaseActivity {
 					sgender = rfemale.getText().toString();
 				}
 			}
-		});
+		});*/
 		//为iback按钮注册监听事件
 		iback.setOnClickListener(new OnClickListener() {
 			
@@ -127,7 +127,7 @@ public class RegisterActivity extends BaseActivity {
 				srpwd = erepwd.getText().toString();
 				//2 验证注册信息的值是否合理
 				if(susername == null || susername.equals("")|| semail == null || semail.equals("") || spwd == null || spwd.equals("")|| srpwd == null || srpwd.equals("")) {
-					AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
+					AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this,AlertDialog.THEME_HOLO_LIGHT);
 					dialog.setTitle("注册失败");
 					dialog.setMessage("用户信息不能为空");
 					dialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -138,7 +138,7 @@ public class RegisterActivity extends BaseActivity {
 					});
 					dialog.show();
 				}else if(!spwd.equals(srpwd)) {
-					AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
+					AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this,AlertDialog.THEME_HOLO_LIGHT);
 					dialog.setTitle("注册失败");
 					dialog.setMessage("两次密码应该相同");
 					dialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -163,7 +163,7 @@ public class RegisterActivity extends BaseActivity {
 					
 					 if(result) {
 					    	//如果插入成功，跳转到登录界面
-					    	AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
+					    	AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this,AlertDialog.THEME_HOLO_LIGHT);
 							dialog.setTitle("注册成功");
 							dialog.setMessage("点击进入登录页面");
 							dialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -178,7 +178,7 @@ public class RegisterActivity extends BaseActivity {
 							
 					    	
 					    }else {
-					    	AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
+					    	AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this,AlertDialog.THEME_HOLO_LIGHT);
 							dialog.setTitle("注册失败");
 							dialog.setMessage("注册信息有错误");
 							dialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {

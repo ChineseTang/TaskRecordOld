@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
 	private TextView register;
 	private EditText eusername;
 	private EditText epwd;
-	private CheckBox rememberpass;
+	//private CheckBox rememberpass;
 	private Button loginbtn;
 	private String username;
 	private String pwd;
@@ -47,8 +47,10 @@ public class MainActivity extends BaseActivity {
         eusername = (EditText) findViewById(R.id.userNamea);
         epwd = (EditText) findViewById(R.id.pwd);
         loginbtn = (Button) findViewById(R.id.loginbtn);
-        rememberpass = (CheckBox) findViewById(R.id.rememberpwd);
-        boolean isRember = pref.getBoolean("rember_password", false);
+        //rememberpass = (CheckBox) findViewById(R.id.rememberpwd);
+        //如果用户登录成功，那么下次登录的时候就记住密码，免登录
+        //默认是记住密码的
+        boolean isRember = pref.getBoolean("rember_password", true);
         //boolean isfirst = pref.getBoolean("firstlogin", false);
         if(isRember) {
         	//将账号和密码设置到文本框中
@@ -56,9 +58,11 @@ public class MainActivity extends BaseActivity {
         	String p = pref.getString("uPwd","");
         	eusername.setText(u);
         	epwd.setText(p);
-        	rememberpass.setChecked(true);
+        	//rememberpass.setChecked(true);
         }
-        
+        //让EditText失去光标
+        eusername.clearFocus();
+        epwd.clearFocus();
         String regtxt = "没有账号 点击注册";
         SpannableString span = new SpannableString(register.getText().toString());
         span.setSpan(new ClickableSpan() {
@@ -107,21 +111,29 @@ public class MainActivity extends BaseActivity {
 					if(rs != null) {
 						//将用户信息保存到全局中
 						AppApplication.setUser(rs);
-						//如果复选框选中，那么保存用户信息到Preferences中
+						//默认保存用户信息到Preferences中
 						editor = pref.edit();
-						if(rememberpass.isChecked()) {
+						editor.putBoolean("rember_password", true);
+						editor.putString("uName", username);
+						editor.putString("uPwd", pwd);
+						editor.commit();
+						Intent aintent = new Intent(MainActivity.this,MainTabActivity.class);
+						startActivity(aintent);
+						finish();
+						//不要引导页面了
+						/*if(rememberpass.isChecked()) {
 							editor.putBoolean("rember_password", true);
 							editor.putString("uName", username);
 							editor.putString("uPwd", pwd);
 							editor.commit();
 						}else{
 							editor.clear();
-						}
+						}*/
 						//如果是第一次进入引导界面，否则进入首页
 						/*pref = getSharedPreferences("data", MODE_PRIVATE);
 						editor = pref.edit();*/
 						//设置是否是第一次加载，如果是的话，进入引导界面
-						if(pref.getBoolean("firstlogin",true)) {
+						/*if(pref.getBoolean("firstlogin",true)) {
 							editor = pref.edit();
 							editor.putBoolean("firstlogin", false);
 							editor.commit();
@@ -132,9 +144,9 @@ public class MainActivity extends BaseActivity {
 							Intent aintent = new Intent(MainActivity.this,MainTabActivity.class);
 							startActivity(aintent);
 							finish();
-						}
+						}*/
 					}else {
-						AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+						AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this,AlertDialog.THEME_HOLO_LIGHT);
 						dialog.setTitle("登录失败");
 						dialog.setMessage("用户名或密码错误");
 						dialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -148,15 +160,5 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		});
-        
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
 }

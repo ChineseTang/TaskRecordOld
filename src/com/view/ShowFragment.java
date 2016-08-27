@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -93,47 +95,60 @@ public class ShowFragment extends Fragment {
 						getActivity(),AlertDialog.THEME_HOLO_LIGHT);
 				dialog.setTitle("任务内容");
 				dialog.setMessage(task.getNcontent());
-				dialog.setPositiveButton("完成",
+				dialog.setPositiveButton("删除任务",
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
-								// 更新这个任务的状态，改变其为完成状态
-								new NewtaskController().changeToFinish(task
-										.getNtId());
-								String datetime = task.getaTime();
-								tasks = new NewtaskController().searchByTime(
-										AppApplication.getUser().getuId(),
-										datetime);
-								taskadapter = new TaskAdapter(
-										AppApplication.getContext(),
-										R.layout.task_item, tasks);
-								tasklist.setAdapter(taskadapter);
+								new NewtaskController().deleteTaskById(task.getNtId());
+								tasks.remove(positionin);
 								taskadapter.notifyDataSetChanged();
 							}
 						});
+				//如果任务完成，那么可以修改为未完成
+				if(task.getNfinish() == 1 ) {
+					dialog.setNegativeButton("未完成任务",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
+									new NewtaskController().changeToNotFinish(task
+											.getNtId());
+									String datetime = task.getaTime();
+									tasks = new NewtaskController().searchByTime(
+											AppApplication.getUser().getuId(),
+											datetime);
+									taskadapter = new TaskAdapter(
+											AppApplication.getContext(),
+											R.layout.task_item, tasks);
+									tasklist.setAdapter(taskadapter);
+									taskadapter.notifyDataSetChanged();
+								}
+							});
+					//如果任务未完成，可以修改为完成
+				}else if(task.getNfinish() == 0){
+					dialog.setNegativeButton("完成任务",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
+									new NewtaskController().changeToFinish(task
+											.getNtId());
+									String datetime = task.getaTime();
+									tasks = new NewtaskController().searchByTime(
+											AppApplication.getUser().getuId(),
+											datetime);
+									taskadapter = new TaskAdapter(
+											AppApplication.getContext(),
+											R.layout.task_item, tasks);
+									tasklist.setAdapter(taskadapter);
+									taskadapter.notifyDataSetChanged();
+								}
+							});
+				}
 				
-				dialog.setNegativeButton("未完",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
-								new NewtaskController().changeToNotFinish(task
-										.getNtId());
-								String datetime = task.getaTime();
-								tasks = new NewtaskController().searchByTime(
-										AppApplication.getUser().getuId(),
-										datetime);
-								taskadapter = new TaskAdapter(
-										AppApplication.getContext(),
-										R.layout.task_item, tasks);
-								tasklist.setAdapter(taskadapter);
-								taskadapter.notifyDataSetChanged();
-							}
-						});
-				//点击删除该条任务
-				dialog.setNeutralButton("删除", new DialogInterface.OnClickListener() {
+				//点击修改该条任务
+				dialog.setNeutralButton("修改任务", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
-						new NewtaskController().deleteTaskById(task.getNtId());
+						
 						/*String datetime = task.getaTime();
 						tasks = new NewtaskController().searchByTime(
 								AppApplication.getUser().getuId(),
@@ -142,8 +157,66 @@ public class ShowFragment extends Fragment {
 								AppApplication.getContext(),
 								R.layout.task_item, tasks);
 						tasklist.setAdapter(taskadapter);*/
-						tasks.remove(positionin);
-						taskadapter.notifyDataSetChanged();
+						/*tasks.remove(positionin);
+						taskadapter.notifyDataSetChanged();*/
+						// 更新这个任务的状态，改变其为完成状态
+						/*new NewtaskController().changeToFinish(task
+								.getNtId());
+						String datetime = task.getaTime();
+						tasks = new NewtaskController().searchByTime(
+								AppApplication.getUser().getuId(),
+								datetime);
+						taskadapter = new TaskAdapter(
+								AppApplication.getContext(),
+								R.layout.task_item, tasks);
+						tasklist.setAdapter(taskadapter);
+						taskadapter.notifyDataSetChanged();*/
+						AlertDialog.Builder newdialog = new AlertDialog.Builder(
+								getActivity(),AlertDialog.THEME_HOLO_LIGHT);
+						final EditText et = new EditText(getActivity());  
+						et.setText(task.getNcontent());
+						et.setSelection(et.getText().length());
+						et.setMinHeight(300);
+						et.setBackground(null);
+						et.setGravity(Gravity.TOP | Gravity.LEFT);
+						newdialog.setView(et);
+						
+						newdialog.setTitle("任务内容");
+						//newdialog.setMessage(task.getNcontent());
+						newdialog.setPositiveButton("取消修改任务",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface arg0, int arg1) {
+										/*new NewtaskController().deleteTaskById(task.getNtId());
+										tasks.remove(positionin);
+										taskadapter.notifyDataSetChanged();*/
+									}
+								});
+						newdialog.setNegativeButton("修改任务",new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								//1、新建一个Task
+								Newtask newtask = new Newtask(task.getNtId(),task.getuId(),et.getText().toString(),
+										0,task.getaTime(),task.getNtasktime());
+								//修改任务
+								boolean rs = new NewtaskController().updtateTask(newtask);
+								if(rs) {
+									String datetime = task.getaTime();
+									tasks = new NewtaskController().searchByTime(
+											AppApplication.getUser().getuId(),
+											datetime);
+									taskadapter = new TaskAdapter(
+											AppApplication.getContext(),
+											R.layout.task_item, tasks);
+									tasklist.setAdapter(taskadapter);
+									taskadapter.notifyDataSetChanged();
+								}
+								/*new NewtaskController().deleteTaskById(task.getNtId());
+								tasks.remove(positionin);
+								taskadapter.notifyDataSetChanged();*/
+							}
+						});
+						newdialog.show();
 					}
 					
 				});
@@ -309,10 +382,14 @@ public class ShowFragment extends Fragment {
 				viewHolder.taskfinish.setTextColor(Color.RED);
 			} else {
 				viewHolder.taskfinish.setText("未完成");
-				viewHolder.taskfinish.setTextColor(Color.BLACK);
+				viewHolder.taskfinish.setTextColor(Color.WHITE);
 			}
 			viewHolder.tasktime.setText(anewtask.getaTime());
-
+			if(position%2 == 0 ) {
+				view.setBackgroundResource(R.drawable.listitembgcolor1);
+			}else if(position%2 == 1 ) {
+				view.setBackgroundResource(R.drawable.listitembgcolor2);
+			}
 			return view;
 		}
 
