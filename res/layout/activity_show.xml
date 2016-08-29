@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="#87CEFA"
     android:orientation="vertical" >
-<!-- android:background="@drawable/rebg" -->
+
+    <!-- android:background="@drawable/rebg" -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,8 +19,8 @@
             android:id="@+id/iv_left"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="30dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/left_arrow"
             android:contentDescription="@null" />
 
@@ -61,12 +63,15 @@
             android:contentDescription="@null" />
     </LinearLayout>
 
-        <!--  <View
+    <!--
+              <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_margin="4dp"
-            android:background="#000000" />  -->
- <!--    android:background="@drawable/rounded_edittext" -->
+            android:background="#000000" />
+    -->
+    <!-- android:background="@drawable/rounded_edittext" -->
+
     <LinearLayout
         android:id="@+id/datashow"
         android:layout_width="match_parent"
@@ -74,7 +79,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        
         android:orientation="vertical" >
 
         <com.myview.WeekDayView
@@ -86,21 +90,22 @@
             android:layout_width="match_parent"
             android:layout_height="200sp" />
     </LinearLayout>
- 	<LinearLayout 
- 	    android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
- 	    >
-          <View
+        android:orientation="vertical" >
+
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#ffffff" />
- 	     <ListView
+
+        <ListView
             android:id="@+id/tasklist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="#000000"
-         >
-          </ListView>
- 	</LinearLayout>
+            android:divider="#000000" >
+        </ListView>
+    </LinearLayout>
 </LinearLayout>
